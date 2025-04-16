@@ -109,28 +109,50 @@ class Item
    }
    static function getItemsByCategory($categoryID)
    {
-       $db = getDB();
-       $query = "SELECT * from items where categoryID = $categoryID";
-       $result = $db->query($query);
-       if (mysqli_num_rows($result) > 0) {
-           $items = array();
-           while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-               $item = new Item(
-                   $row['itemID'],
-                   $row['itemName'],
-                   $row['categoryID'],
-                   $row['listPrice']
-               );
-               array_push($items, $item);
-           }
-           $db->close();
-           return $items;
-       } else {
-           $db->close();
-           return NULL;
-       }
+    $db = getDB();
+    $query = "SELECT * from items where categoryID = $categoryID";
+    $result = $db->query($query);
+    if (mysqli_num_rows($result) > 0) {
+        $items = array();
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            $item = new Item(
+                $row['itemID'],
+                $row['itemName'],
+                $row['categoryID'],
+                $row['listPrice']
+            );
+            array_push($items, $item);
+        }
+        $db->close();
+        return $items;
+    } else {
+        $db->close();
+        return NULL;
+        }
+    }
+    static function getTotalItems()
+    {
+   $db = getDB();
+   $query = "SELECT count(itemID) FROM items";
+   $result = $db->query($query);
+   $row = $result->fetch_array();
+   if ($row) {
+       return $row[0];
+   } else {
+       return NULL;
    }
-
+    }
+    static function getTotalListPrice()
+    {
+   $db = getDB();
+   $query = "SELECT sum(listPrice) FROM items";
+   $result = $db->query($query);
+   $row = $result->fetch_array();
+   if ($row) {
+       return $row[0];
+   } else {
+       return NULL;
+   }
+    }
 }
 ?>
-
