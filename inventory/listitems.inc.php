@@ -1,24 +1,30 @@
-<script language="javascript">
-   function listbox_dblclick() {
-       document.items.displayitem.click()
-   }
-   function button_click(target) {
-       var userConfirmed = true;
-       if (target == 1) {
-           userConfirmed = confirm("Are you sure you want to remove this item?");
-       }
-       if (userConfirmed) {
-           if (target == 0) items.action = "index.php?content=displayitem";
-           if (target == 1) items.action = "index.php?content=removeitem";
-           if (target == 2) items.action = "index.php?content=updateitem";
-       } else {
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+  $(document)._____(function() {
+     $("#itemID")._____(function() {
+        $("#displayitem")._____();
+     });
+     $("#displayitem")._____(function() {
+        $("#items")._____("action", "index.php?content=displayitem")._____();
+     });
+     $("#deleteitem")._____(function() {
+        const userConfirmed = confirm("Are you sure you want to remove this item?");
+        if (userConfirmed) {
+           $("#items")._____("action", "index.php?content=removeitem")._____();
+        } else {
            alert("Action canceled.");
-       }
-   }
+        }
+     });
+     $("#updateitem")._____(function() {
+        $("#items")._____("action", "index.php?content=updateitem")._____();
+     });
+     const firstValue = $("#itemID option:first").val();
+     $("#itemID").val(firstValue).focus();
+  });
 </script>
 <h2>Select Item</h2>
-<form name="items" method="post">
-   <select ondblclick="listbox_dblclick()" name="itemID" size="20">
+<form id="items" method="post">
+   <select ondblclick="listbox_dblclick()" id="itemID" size="20">
        <?php
    //    include('item.php');
        $items = Item::getItems();
@@ -32,7 +38,8 @@
        ?>
    </select>
    <br>
-   <input type="submit" onClick="button_click(0)" name="displayitem" value="View Item">
-   <input type="submit" onClick="button_click(1)" name="deleteitem" value="Delete Item">
-   <input type="submit" onClick="button_click(2)" name="updateitem" value="Update Item">
+  <input type="submit" id="displayitem" name="displayitem" value="View Item">
+  <input type="submit" id="deleteitem" name="deleteitem" value="Delete Item">
+  <input type="submit" id="updateitem" name="updateitem" value="Update Item">
 </form>
+
