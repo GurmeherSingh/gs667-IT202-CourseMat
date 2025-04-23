@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Changing Properties with jQuery</title>
+</head>
+<style>
+ div {
+   background-color: yellow;
+ }
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+ $(document).ready(function () {
+   $("button").click(function () {
+     $("span").html(
+    "<h1>This changed to a heading</h1>");
+     $("p").css("background-color", "red");
+     $("p").css("font-size", "50px");
+   });
+ });
+</script>
+<body>
+ <div id="container">
+   <span>This is my heading</span>
+   <p>This is some content on my web page</p>
+   <button>Test button</button>
+ </div>
+</body>
+</html>
